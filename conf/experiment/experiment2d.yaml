@@ -1,0 +1,63 @@
+##### UNCOMMENT in multi-processing
+hydra:
+ sweep: #https://hydra.cc/docs/configure_hydra/workdir/
+   dir: multirun/${now:%Y-%m-%d_%H-%M}/experiment2d
+   subdir: ${exp.target}/${exp.seed}
+defaults: #https://hydra.cc/docs/plugins/joblib_launcher/
+ - override hydra/launcher: joblib
+#####
+device:
+  precision_double: false #use float64 precision
+  device: cpu
+exp:
+  exp_id:
+  seed: 1
+  target: NA
+  d: 2
+  rum_noise_dist: gumbel #exponential, gumbel
+  s: 0.7797 #Exp(s) noise or Gumbel(0,s) noise    default s=1.0 in Exp, and s=0.7797 in Gumbel
+  q_dist: uniform #uniform, target, mixture_gaussian (which is essentially gaussian as both components have same mean and covariance)
+  mixture_probs: [0.5, 0.5] #mixture probabilities for mixture of Gaussian for q_dist
+data:
+  k: 2 #the cardinaility of each choice set
+  n: 2000 #the total number of comparisons (when k=2) or rankings (when k>2)
+  transform2unitcube: false
+method:
+  name: EDM
+  sigma_dist: lognormal #uniform, lognormal #Var(lognormal) = (exp(P_std^2)-1)*exp(2*P_mean+P_std^2)
+  sigma_min: 0.002 #0.002, Minimum noise level in diffusion
+  sigma_max: 5.0 #edm default 5.0, Maximum noise level in diffusion, should be >>sigma_data i.e. large enough otherwise poor samples  (in twomoon sigma_data = [1.8937, 0.8349], compare that EDMtoy: sigma_data = 0.5 along each axis)
+  P_mean: -2.3 #log(sigma) ~ N(P_mean,P_std) #edm 2D toy -2.3   #better to use more conservative noise distribution e.g. -1.5
+  P_std: 1.5 #log(sigma) ~ N(P_mean,P_std)  #edm 2D toy 1.5   #better to use more conservative noise distribution e.g. 0.9
+  phi: 0.5 #mixture probability for sampling the ALD noise schedule (cosine)
+  langevin_L: 40 #Number of noise levels for annealead Langevin dynamics
+  langevin_T: 15 #Number of iterations per noise-level
+  langevin_epsilon: 7.0 #Reference step-size
+  ema_std: 0.01 #simga_ref in (Karras et al, 2024), upper bound is 0.2886
+model:
+  name: EDMtoy
+  num_layers: 4 #same as EDMtoy denoisers D_0 and D_1
+  hidden_dim: 32 #same as EDMtoy denoiser conditional D_1, i.e. high-fidelity model (needs to be divisible by 4)
+  num_layers_marginal: 4
+  hidden_dim_marginal: 64
+optimization:
+  max_iter: 8192
+  max_iter_marginal:  4096
+  batch_size: 2000
+  batch_size_marginal: 4096
+  lr_ref: 5e-3
+  lr_ref_marginal: 1e-2
+  lr_iter: 1024
+  lr_iter_marginal: 1024
+  tau_batch_size: 8
+  tau_lr: 5e-4
+  tau_max_iter: 20000
+  tau_max_weight_decay: 1e-3
+plot:
+  showduringtraining: false #works only when run as notebook
+  showdatapoints: false #works only when run as notebook
+  show_iter: 5000000 #note that changing this: more/less RNG draws = different training batches = different results
+  grid_size: 400
+  nsamples: 25000 #samples from the learnd model for plotting
+  wasserstein_nsamples: 15000
+  progressbar_show: false
