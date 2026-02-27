@@ -1,8 +1,8 @@
-## Score-based Density Estimation from Pairwise Comparisons<br><sub>Official PyTorch implementation of the ICLR 2026 paper</sub>
+## Score-Based Density Estimation from Pairwise Comparisons<br><sub>Official PyTorch implementation of the ICLR 2026 paper</sub>
 
-![Teaser image](./image.jpg)
+![Teaser image](./data/teaser_figure.png "Diffusion for the MWD, the tempering field, samples from the 'tempered' MWD")
 
-**Score-based Density Estimation from Pairwise Comparisons**<br>
+**Score-Based Density Estimation from Pairwise Comparisons**<br>
 Petrus Mikkola, Luigi Acerbi, Arto Klami
 <br>https://arxiv.org/abs/2510.09146<br>
 
@@ -10,35 +10,39 @@ Abstract: *We study density estimation from pairwise comparisons, motivated by e
 
 ## Requirements
 
-See ...
+Install dependencies:
+```
+pip install -r requirements.txt
+```
 
-## License & Attribution
+## License and Attribution
 
-This project is primarily original work by Petrus Mikkola (petrus-mikkola). However, because it incorporates and adapts code from a project under the **CC BY-NC-SA 4.0** license, this entire repository is distributed under the same terms to remain compliant with the "ShareAlike" requirement.
+This project is authored by Petrus Mikkola ([petrus-mikkola](https://github.com/petrus-mikkola)). 
 
-This repository is licensed under the **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)**. 
-[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+As this work incorporates and adapts code from projects licensed under **CC BY-NC-SA 4.0**, this entire repository is distributed under the same terms to comply with the "ShareAlike" requirement.
 
----
-
-### Credits and Derivative Works
+This repository is licensed under the **[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/)**.
 
 This project builds upon and modifies code from the following sources:
 
-1.  **NVIDIA CORPORATION & AFFILIATES**
-    * **Source:** [Repository](https://github.com/NVlabs/edm)
-    * **License:** [CC BY-NC-SA 4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/)
-    * **Contribution:** Modified code from xxx. Under the **ShareAlike (SA)** clause, this repository adopts this license.
+1. **NVIDIA CORPORATION & AFFILIATES** &copy; 2024
+   * **Source:** [edm2](https://github.com/NVlabs/edm2)
+   * **License:** [CC BY-NC-SA 4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+   * **Contribution:** Modified logic from `generate_images.py` and `toy_example.py`. Included `phema.py`.
 
-3.  **Google Research Authors**
-    * **Source:** [Repository](https://github.com/yang-song/score_sde_pytorch)
-    * **License:** [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
-    * **Contribution:** Modified code from likelihood.py. 
+2. **Google Research Authors** &copy; 2020
+   * **Source:** [score_sde_pytorch](https://github.com/yang-song/score_sde_pytorch)
+   * **License:** [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+   * **Contribution:** Modified logic from `likelihood.py`.
 
 
 ## Citation
-
+Accepted to ICLR 2026, the citation will be updated soon..
 ```
-@inproceedings{xxx
+@inproceedings{mikkola2026scorepair,
+ author = {Mikkola, Petrus and Acerbi, Luigi and Klami, Arto},
+ booktitle = {The Fourteenth International Conference on Learning Representations},
+ title = {Preferential Normalizing Flows},
+ year = {2026}
 }
 ```
